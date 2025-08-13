@@ -9,7 +9,7 @@ function App() {
         <BrowserRouter>
             <Navbar/>
             <Routes>
-            <Route path="/" element={Landing_Page}/>
+                <Route path="/" element={<Landing_Page />} /> { /* Click Logo */ }
             </Routes>
         </BrowserRouter>
     </div>
