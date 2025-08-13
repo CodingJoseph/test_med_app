@@ -1,12 +1,68 @@
-import "./Sign_Up.css";
+// Following code has been commented with appropriate comments for your reference.
+import React, { useState } from 'react';
+import './Sign_Up.css'
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
+// Function component for Sign Up form
 const Sign_Up = () => {
+    // State variables using useState hook
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [showerr, setShowerr] = useState(''); // State to show error messages
+    const navigate = useNavigate(); // Navigation hook from react-router
+
+    // Function to handle form submission
+    const register = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        // API Call to register user
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+            }),
+        });
+
+        const json = await response.json(); // Parse the response JSON
+
+        if (json.authtoken) {
+            // Store user data in session storage
+            sessionStorage.setItem("auth-token", json.authtoken);
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("phone", phone);
+            sessionStorage.setItem("email", email);
+
+            // Redirect user to home page
+            navigate("/");
+            window.location.reload(); // Refresh the page
+        } else {
+            if (json.errors) {
+                for (const error of json.errors) {
+                    setShowerr(error.msg); // Show error messages
+                }
+            } else {
+                setShowerr(json.error);
+            }
+        }
+    };
+
+    // JSX to render the Sign Up form
     return (
         <div className="signup-container">
             <h1>Sign Up</h1>
             <h3>Already a member? <a href="../Login/Login.html">Login</a></h3>
+            {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
             {/* Form that REQUIRES Role, Name, Phone No., Email, and Password. Submit and Reset button at the end. */}
-            <form className="signup-form">
+            <form className="signup-form" method="POST" onSubmit={register}>
                 <table>
                     <tbody>
                     <tr>
@@ -28,7 +84,8 @@ const Sign_Up = () => {
                     </tr>
                     <tr>
                         <td><label for="email">E-mail</label></td>
-                        <td><input type="email" name="email" id="email" required placeholder="Your e-mail address here" /></td>
+                        <td><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" required placeholder="Your e-mail address here" aria-describedby="helpId" />
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="password">Password</label></td>
@@ -46,4 +103,4 @@ const Sign_Up = () => {
     );
 };
 
-export default Sign_Up;
+export default Sign_Up; // Export the Sign_Up component for use in other components
