@@ -8,6 +8,7 @@ import { API_URL } from '../../config';
 const Sign_Up = () => {
     // State variables using useState hook
     const [name, setName] = useState('');
+    const [role, setRole] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +26,7 @@ const Sign_Up = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                role: role,
                 name: name,
                 email: email,
                 password: password,
@@ -38,6 +40,7 @@ const Sign_Up = () => {
             // Store user data in session storage
             sessionStorage.setItem("auth-token", json.authtoken);
             sessionStorage.setItem("name", name);
+            sessionStorage.setItem("role", role)
             sessionStorage.setItem("phone", phone);
             sessionStorage.setItem("email", email);
 
@@ -69,27 +72,27 @@ const Sign_Up = () => {
                         <td>Role</td>
                         <td>
                         <div className="signup-radio-row">
-                            <input type="radio" name="role" id="patient" required /><label for="patient">Patient</label>
-                            <input type="radio" name="role" id="doctor" /><label for="doctor">Doctor</label>
+                            <input value={role} onChange={(e) => setRole(e.target.value)} type="radio" name="role" id="patient" required /><label htmlFor="patient">Patient</label>
+                            <input value={role} onChange={(e) => setRole(e.target.value)} type="radio" name="role" id="doctor" /><label htmlFor="doctor">Doctor</label>
                         </div>
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="name">Name</label></td>
-                        <td><input type="text" name="name" id="name" required placeholder="Your name here" /></td>
+                        <td><label htmlFor="name">Name</label></td>
+                        <td><input value={name} onChange={(e) => setName(e.target.value)} type="text" name="name" id="name" required placeholder="Your name here" aria-describedby="helpId" /></td>
                     </tr>
                     <tr>
-                        <td><label for="phone">Phone #</label></td>
-                        <td><input type="tel" name="phone" id="phone" required placeholder="1234567890" maxlength="10" /></td>
+                        <td><label htmlFor="phone">Phone #</label></td>
+                        <td><input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" name="phone" id="phone" required placeholder="1234567890" maxLength="10" aria-describedby="helpId" /></td>
                     </tr>
                     <tr>
-                        <td><label for="email">E-mail</label></td>
+                        <td><label htmlFor="email">E-mail</label></td>
                         <td><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" required placeholder="Your e-mail address here" aria-describedby="helpId" />
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="password">Password</label></td>
-                        <td><input name="password" id="password" required placeholder="Your password here" /></td>
+                        <td><label htmlFor="password">Password</label></td>
+                        <td><input value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" required placeholder="Your password here" aria-describedby="helpId" /></td>
                     </tr>
                     </tbody>
                 </table>
