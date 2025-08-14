@@ -26,8 +26,8 @@ const Sign_Up = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                role: role,
                 name: name,
+                role: role,
                 email: email,
                 password: password,
                 phone: phone,
@@ -62,7 +62,7 @@ const Sign_Up = () => {
     return (
         <div className="signup-container">
             <h1>Sign Up</h1>
-            <h3>Already a member? <a href="../Login/Login.html">Login</a></h3>
+            <h3>Already a member? <Link to="/login">Login</Link></h3>
             {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
             {/* Form that REQUIRES Role, Name, Phone No., Email, and Password. Submit and Reset button at the end. */}
             <form className="signup-form" method="POST" onSubmit={register}>
@@ -72,8 +72,8 @@ const Sign_Up = () => {
                         <td>Role</td>
                         <td>
                         <div className="signup-radio-row">
-                            <input value={role} onChange={(e) => setRole(e.target.value)} type="radio" name="role" id="patient" required /><label htmlFor="patient">Patient</label>
-                            <input value={role} onChange={(e) => setRole(e.target.value)} type="radio" name="role" id="doctor" /><label htmlFor="doctor">Doctor</label>
+                            <input type="radio" name="role" id="patient" required /><label htmlFor="patient">Patient</label>
+                            <input type="radio" name="role" id="doctor" /><label htmlFor="doctor">Doctor</label>
                         </div>
                         </td>
                     </tr>

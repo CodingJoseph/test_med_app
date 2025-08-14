@@ -46,7 +46,7 @@ const Navbar = () => {
         <nav> {/* Navigation logo section */}
             <div className="nav-logo">
             {/* Link to the home page */}
-            <a href="/">StayHealthy <img className="nav-logo-img" alt="Logo" src={logo}/></a>
+            <Link to="/">StayHealthy <img className="nav-logo-img" alt="Logo" src={logo}/></Link>
             </div>
             {/* Navigation icon section with an onClick event listener */}
             <div className="nav-icon" onClick={handleClick}> {/*onClick={handleClick}*/}
@@ -64,7 +64,10 @@ const Navbar = () => {
                 </li>
                 {isLoggedIn?(
                     <>
+                        {/* using email or username causes error, must use sessionStorage.getItem(). */}
+                        <p>Welcome, {sessionStorage.getItem("email").split("@")[0]}</p>
                         <li className="link">
+   
                             <button className="btn2" onClick={handleLogout}>Logout</button>
                         </li>
                     </>

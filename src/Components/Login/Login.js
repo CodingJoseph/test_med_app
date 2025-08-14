@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Login.css";
 
 const Login = () => {
     return (
           <div className="login-container">
             <h1>Login</h1>
-            <h3>Not a member yet? <a href="../Sign_Up/Sign_Up.html">Sign Up</a></h3>
+            <h3>Not a member yet? <Link to="/signup">Sign Up</Link></h3>
             {/* Form that REQUIRES Email and Password. Submit and Reset button at the end. */}
             <form className="login-form">
                 <table>
