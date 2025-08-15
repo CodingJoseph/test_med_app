@@ -8,7 +8,6 @@ import { API_URL } from '../../config';
 const Sign_Up = () => {
     // State variables using useState hook
     const [name, setName] = useState('');
-    const [role, setRole] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -20,14 +19,13 @@ const Sign_Up = () => {
         e.preventDefault(); // Prevent default form submission
 
         // API Call to register user
-        const response = await fetch(`${API_URL}/api/auth/register`, {
+        const response = await fetch(`${API_URL}api/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 name: name,
-                role: role,
                 email: email,
                 password: password,
                 phone: phone,
@@ -40,7 +38,6 @@ const Sign_Up = () => {
             // Store user data in session storage
             sessionStorage.setItem("auth-token", json.authtoken);
             sessionStorage.setItem("name", name);
-            sessionStorage.setItem("role", role)
             sessionStorage.setItem("phone", phone);
             sessionStorage.setItem("email", email);
 
@@ -87,8 +84,7 @@ const Sign_Up = () => {
                     </tr>
                     <tr>
                         <td><label htmlFor="email">E-mail</label></td>
-                        <td><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" required placeholder="Your e-mail address here" aria-describedby="helpId" />
-                        </td>
+                        <td><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" required placeholder="Your e-mail address here" aria-describedby="helpId" /></td>
                     </tr>
                     <tr>
                         <td><label htmlFor="password">Password</label></td>

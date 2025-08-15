@@ -64,10 +64,8 @@ const Navbar = () => {
                 </li>
                 {isLoggedIn?(
                     <>
-                        {/* using email or username causes error, must use sessionStorage.getItem(). */}
-                        <p>Welcome, {sessionStorage.getItem("email").split("@")[0]}</p>
+                        <p>Welcome, </p>
                         <li className="link">
-   
                             <button className="btn2" onClick={handleLogout}>Logout</button>
                         </li>
                     </>
